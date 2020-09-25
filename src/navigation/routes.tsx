@@ -8,8 +8,8 @@ import UserProfile from "../screens/UserProfile";
 
 //PUBLIC ROUTES (IF NOT LOGGED IN)
 export const publicRoutes = [
-  { name: "SignUp", path: "/signUp", exact: true, main: () => <SignUp /> },
-  { name: "Login", path: "/login", exact: true, main: () => <SignIn /> },
+  { name: "SignUp", path: "/signup", exact: true, main: () => <SignUp /> },
+  { name: "SignIn", path: "/signin", exact: true, main: () => <SignIn /> },
 ];
 
 //NORMAL USERS ROUTES

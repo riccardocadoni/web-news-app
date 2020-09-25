@@ -38,7 +38,7 @@ const RouterSwitch = () => {
             component={route.main}
           />
         ))}
-        <Redirect from="/" to="/login" />
+        <Redirect from="/" to="/signin" />
       </Switch>
     );
   }

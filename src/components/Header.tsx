@@ -55,7 +55,9 @@ const Input = styled.input`
   }
 `;
 
-const MenuLink = styled.a``;
+const MenuLink = styled(Link)`
+  color: red;
+`;
 
 export interface HeaderProps {}
 
@@ -70,7 +72,7 @@ const Header: React.FC<HeaderProps> = () => {
         </NavCenter>
 
         <NavRight>
-          <Link to="/feed">Feed</Link>
+          <MenuLink to="/feed">Feed</MenuLink>
 
           <Link to="/profile">profile</Link>
 

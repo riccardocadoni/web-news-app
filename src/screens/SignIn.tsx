@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import styled from "styled-components";
 import {
   signUserIn,
   deleteErrorMessage,
@@ -7,6 +7,58 @@ import {
   selectIsLoading,
 } from "../redux/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { SECONDARY_COLOR, PRIMARY_COLOR } from "../constants/Colors";
+import { RED_HAT_FONT } from "../constants/Font";
+import { Link } from "react-router-dom";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+`;
+const Title = styled.p`
+  font-size: 50px;
+  font-family: ${RED_HAT_FONT};
+  font-weight: bold;
+  color: ${PRIMARY_COLOR};
+`;
+
+const EmailInput = styled.input`
+  align-items: "center";
+  border-radius: 10px;
+  border: 2px solid ${PRIMARY_COLOR};
+  padding: 15px;
+  width: 250px;
+  margin-bottom: 30px;
+`;
+const PswInput = styled.input`
+  align-items: "center";
+  border-radius: 10px;
+  border: 2px solid ${PRIMARY_COLOR};
+  padding: 15px;
+  width: 250px;
+  margin-bottom: 30px;
+`;
+const SignInButton = styled.button`
+  align-items: "center";
+  background-color: ${(props) => (props.disabled ? "grey" : SECONDARY_COLOR)};
+  border-radius: 10px;
+  border: none;
+  width: 250px;
+  margin-bottom: 30px;
+`;
+const SignInButtonText = styled.p`
+  font-family: ${RED_HAT_FONT};
+  font-weight: bold;
+  color: ${PRIMARY_COLOR};
+`;
+const SwapMethodText = styled(Link)`
+  font-size: 15px;
+  font-family: ${RED_HAT_FONT};
+  margin: 30px;
+`;
 
 interface SignInProps {}
 
@@ -31,85 +83,57 @@ const SignIn: React.FC<SignInProps> = () => {
   };
 
   return (
-    <div>
-      <p>Sign In</p>
-      <div>
-        <input
-          type="text"
-          name="nome"
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={"Your Email"}
-          value={email}
-        />
-        <input
-          type="text"
-          name="psw"
-          onChange={(e) => setPsw(e.target.value)}
-          placeholder={"Password"}
-          value={psw}
-        />
-      </div>
-      <button disabled={isSignInButtonDisabled} onClick={handleLogin}>
-        <p>Sign In</p>
-      </button>
-      <button
+    <Container>
+      <Title>Sign In</Title>
+      <EmailInput
+        value={email}
+        placeholder={"Email"}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <PswInput
+        type="password"
+        name="psw"
+        onChange={(e) => setPsw(e.target.value)}
+        placeholder={"Password"}
+        value={psw}
+      />
+      <SignInButton disabled={isSignInButtonDisabled} onClick={handleLogin}>
+        <SignInButtonText>Sign In</SignInButtonText>
+      </SignInButton>
+      <SwapMethodText to={"/signup"}>
+        Don't have an Account? SIGN UP
+      </SwapMethodText>
+      {/* <button
         onClick={() => {
           errorMessage && dispatch(deleteErrorMessage());
         }}
       >
         <p>Don't have an Account? SIGN UP</p>
-      </button>
-    </div>
+      </button> */}
+    </Container>
   );
 };
 
 export default SignIn;
 
-/* const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 30,
-    fontFamily: BOLD_FONT,
-    color: PRIMARY_COLOR,
-  },
-  textInputContainer: {
-    marginVertical: 50,
-  },
-  textInput: {
-    flexDirection: "row",
-    height: 60,
-    width: 250,
-    borderColor: PRIMARY_COLOR,
-    borderRadius: 10,
-    borderWidth: 1,
-    margin: 10,
-    padding: 10,
-  },
-  signInButton: {
-    alignItems: "center",
-    backgroundColor: SECONDARY_COLOR,
-    padding: 15,
-    borderRadius: 10,
-    width: 250,
-    marginBottom: 30,
-  },
-  signInText: {
-    fontSize: 15,
-    fontFamily: BOLD_FONT,
-    color: PRIMARY_COLOR,
-  },
-  swapMethodText: {
-    fontSize: 15,
-    fontFamily: REGULAR_FONT,
-    color: PRIMARY_COLOR,
-  },
-  errorText: {
-    fontSize: 15,
-    color: "red",
-    margin: 30,
-  },
-}); */
+/* const TextInput = styled.input.attrs({
+  type: "submit",
+  value: "Submit",
+})`
+  background: #00aec9;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  width: 100%;
+  border-radius: 5px;
+  height: 35px;
+  border-color: transparent;
+  box-shadow: 0px;
+  outline: none;
+  transition: 0.15s;
+  text-align: center;
+  &:active {
+    background-color: #f1ac15;
+  }
+`; */
