@@ -1,6 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { PRIMARY_COLOR } from "../constants/Colors";
+
+import { useSelector } from "react-redux";
+import { selectAuthenticated } from "../redux/authSlice";
+import ExploreIcon from "@material-ui/icons/Explore";
+import PersonIcon from "@material-ui/icons/Person";
+
+export interface HeaderProps {}
+
+const Header: React.FC<HeaderProps> = () => {
+  const isLoggedIn = useSelector(selectAuthenticated);
+  return (
+    <Nav>
+      <NavHeader>
+        <NavLeft>
+          <MenuLink to="/feed">
+            <Logo>Staging</Logo>
+          </MenuLink>
+        </NavLeft>
+        {isLoggedIn ? (
+          <>
+            <NavCenter>
+              <Input type="text" placeholder="Search" />
+            </NavCenter>
+
+            <NavRight>
+              <MenuLink to="/explore">
+                <ExploreIcon
+                  style={{ color: PRIMARY_COLOR, margin: "5px" }}
+                ></ExploreIcon>
+              </MenuLink>
+              <MenuLink to="/profile">
+                <PersonIcon
+                  style={{ color: PRIMARY_COLOR, margin: "5px" }}
+                ></PersonIcon>
+              </MenuLink>
+            </NavRight>
+          </>
+        ) : null}
+      </NavHeader>
+    </Nav>
+  );
+};
+
+export default Header;
 
 const Nav = styled.div`
   background-color: #fff;
@@ -16,29 +61,28 @@ const NavHeader = styled.div`
 
 const NavLeft = styled.div`
   flex-grow: 1;
-  margin: 20px;
+  margin-left: 20px;
 `;
 
 const NavCenter = styled.div`
   flex-grow: 2;
   text-align: center;
-  margin: 20px;
+  margin-left: 20px;
 `;
 
 const NavRight = styled.div`
   flex-grow: 1;
   text-align: right;
-  margin: 20px;
+  margin-right: 20px;
 `;
 
 const Input = styled.input`
   font-size: 16px;
-  border: solid 1px #dbdbdb;
+  border: solid 1px ${PRIMARY_COLOR};
   border-radius: 3px;
-  color: #262626;
+  color: ${PRIMARY_COLOR};
   padding: 7px 33px;
   border-radius: 3px;
-  color: #999;
   cursor: text;
   font-size: 14px;
   font-weight: 300;
@@ -55,32 +99,11 @@ const Input = styled.input`
   }
 `;
 
-const MenuLink = styled(Link)`
-  color: red;
+const Logo = styled.p`
+  font-weight: bold;
+  color: ${PRIMARY_COLOR};
 `;
 
-export interface HeaderProps {}
-
-const Header: React.FC<HeaderProps> = () => {
-  return (
-    <Nav>
-      <NavHeader>
-        <NavLeft>Staging</NavLeft>
-
-        <NavCenter>
-          <Input type="text" placeholder="Search" />
-        </NavCenter>
-
-        <NavRight>
-          <MenuLink to="/feed">Feed</MenuLink>
-
-          <Link to="/profile">profile</Link>
-
-          <Link to="/explore">explore</Link>
-        </NavRight>
-      </NavHeader>
-    </Nav>
-  );
-};
-
-export default Header;
+const MenuLink = styled(Link)`
+  text-decoration: none;
+`;
