@@ -89,7 +89,7 @@ const Input = styled.input`
   text-align: center;
   background: #fafafa;
 
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     display: none;
   }
 
