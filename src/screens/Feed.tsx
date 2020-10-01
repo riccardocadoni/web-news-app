@@ -10,6 +10,7 @@ import {
 } from "../redux/feedSlice";
 import FeedCard from "../components/FeedCard";
 import { getFollowingData } from "../redux/profileSlice";
+import Loading from "../components/Loading";
 
 export interface FeedProps {}
 
@@ -25,9 +26,15 @@ const Feed: React.FC<FeedProps> = () => {
       dispatch(getFollowingData({}));
     }
   }, []);
-  if (!feed) {
-    return <p>loafing</p>;
-  }
+
+  if (isLoading) return <Loading></Loading>;
+
+  if (!feed || feed.length === 0)
+    return (
+      <Container>
+        <h3>There's nothing to see here.. try following someone!</h3>
+      </Container>
+    );
 
   const items = feed.map((post) => {
     return <FeedCard {...post} key={post.contentId}></FeedCard>;

@@ -7,6 +7,7 @@ import { CreatorContentType } from "../redux/contentSlice";
 import { selectFeed } from "../redux/feedSlice";
 import styled from "styled-components";
 import { RED_HAT_FONT } from "../constants/Font";
+import Loading from "../components/Loading";
 
 export interface ArticleVisualizerProps {}
 
@@ -16,15 +17,20 @@ const ArticleVisualizer: React.FC<ArticleVisualizerProps> = () => {
     null
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //add dispatch get article if is not in redux store
   const feed = useSelector(selectFeed);
 
   useEffect(() => {
     setArticle(feed?.find((object) => object.contentId === contentId));
   }, []);
 
-  if (article === null) return <p>LOading</p>;
-  if (article === undefined) return <p>Article not found</p>;
+  if (article === null) return <Loading></Loading>;
+  if (article === undefined)
+    return (
+      <Container>
+        <Title>Article not found</Title>
+      </Container>
+    );
   if (!contentId)
     return (
       <Container>

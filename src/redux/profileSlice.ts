@@ -108,13 +108,13 @@ export const profileSlice = createSlice({
   name: "profile",
   initialState: {
     following: null,
-    isLoading: false,
+    isLoading: true,
     errorMessage: null,
   } as initialProfileState,
   reducers: {
     reset: (state) => ({
       following: null,
-      isLoading: false,
+      isLoading: true,
       errorMessage: null,
     }),
   },

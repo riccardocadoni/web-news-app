@@ -19,6 +19,7 @@ import {
 } from "../redux/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CreatorContentCard from "../components/CreatorContentCard";
+import Loading from "../components/Loading";
 
 export interface CreatorProfileProps {}
 
@@ -44,7 +45,7 @@ const CreatorProfile: React.FC<CreatorProfileProps> = () => {
     }
   }, []);
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading) return <Loading></Loading>;
   return (
     <Container>
       <ProfileInfoContainer>

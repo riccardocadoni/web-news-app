@@ -42,8 +42,8 @@ const Container = styled.div`
   flex-direction: column;
   background-color: ${BACKGROUND_COLOR};
   margin: 5px;
-  min-width: 150px;
   border-radius: 20px;
+  padding: 10px;
 `;
 const ImageContainer = styled.div`
   align-items: center;
@@ -58,12 +58,12 @@ const ImageProfile = styled.img`
 const TextContainer = styled.div`
   align-items: "flex-start";
   justify-content: "center";
-  margin-left: 15px;
-  margin-bottom: 15px;
+  text-align: center;
 `;
 const Text = styled.p`
   font-size: 15px;
   font-family: ${RED_HAT_FONT};
+  margin: 5px;
 `;
 
 export default CreatorCard;

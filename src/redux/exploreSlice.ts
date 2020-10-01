@@ -46,13 +46,13 @@ export const exploreSlice = createSlice({
   name: "explore",
   initialState: {
     creators: null,
-    isLoading: false,
+    isLoading: true,
     errorMessage: null,
   } as initialExploreState,
   reducers: {
     reset: (state) => ({
       creators: null,
-      isLoading: false,
+      isLoading: true,
       errorMessage: null,
     }),
   },

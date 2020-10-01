@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { PRIMARY_COLOR } from "../constants/Colors";
 import { RED_HAT_FONT } from "../constants/Font";
 import CreatorCard from "../components/CreatorCard";
+import Loading from "../components/Loading";
 
 export interface ExploreProps {}
 
@@ -27,7 +28,7 @@ const Explore: React.FC<ExploreProps> = () => {
     dispatch(getAllCreators({ uid }));
   }, []);
 
-  if (isLoading) return <p>loafing</p>;
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <Container>
@@ -37,9 +38,7 @@ const Explore: React.FC<ExploreProps> = () => {
       </TitleContainer>
       <CardsContainer>
         {creators?.map((creator) => (
-          <CardsItem key={creator.creatorId}>
-            <CreatorCard {...creator}></CreatorCard>
-          </CardsItem>
+          <CreatorCard key={creator.creatorId} {...creator}></CreatorCard>
         ))}
       </CardsContainer>
     </Container>
@@ -53,9 +52,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  width: 600px;
 
   @media (max-width: 400px) {
-    width: 200px;
+    width: 300px;
   }
 `;
 const CardsContainer = styled.div`

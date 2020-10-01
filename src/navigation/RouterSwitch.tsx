@@ -5,10 +5,13 @@ import { userRoutes, publicRoutes } from "./routes";
 import PrivateRoute from "./PrivateRoute";
 import { useSelector } from "react-redux";
 import { selectAuthenticated, selectIsLoading } from "../redux/authSlice";
+import Loading from "../components/Loading";
 
 const RouterSwitch = () => {
   const isLoggedIn = useSelector(selectAuthenticated);
   const isLoading = useSelector(selectIsLoading);
+
+  if (isLoading) return <Loading></Loading>;
 
   if (isLoggedIn) {
     //rotte utente normale
