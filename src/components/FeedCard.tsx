@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TimeAgo from "react-timeago";
 import { RED_HAT_FONT } from "../constants/Font";
 import { BACKGROUND_COLOR } from "../constants/Colors";
+import { useHistory } from "react-router-dom";
 
 export type FeedCardProps = CreatorContentType;
 
@@ -21,10 +22,14 @@ const FeedCard: React.FC<FeedCardProps> = ({
 }) => {
   const pic = coverUrl || process.env.PUBLIC_URL + "/placeholder.jpg";
   const creatorPic =
-    creatorPicUrl || process.env.PUBLIC_URL + "/placeholder.jpg"; //TODO placeolder
-
+    creatorPicUrl || process.env.PUBLIC_URL + "/placeholder.jpg";
+  const history = useHistory();
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        history.push("/content/" + contentId);
+      }}
+    >
       <InfoCardContainer>
         <InfoCreatorContainer>
           <ImageCreator src={creatorPic}></ImageCreator>

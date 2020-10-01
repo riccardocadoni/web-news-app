@@ -17,10 +17,10 @@ const RouterSwitch = () => {
       <Switch>
         {userRoutes.map((route) => (
           <PrivateRoute
-            key={route.path}
-            path={route.path}
-            exact={route.exact}
-            component={route.main}
+            key={route?.path}
+            path={route?.path}
+            exact={route?.exact}
+            component={route?.main}
           />
         ))}
         <Redirect from="/" to="/feed" />

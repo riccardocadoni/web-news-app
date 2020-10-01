@@ -4,6 +4,7 @@ import TimeAgo from "react-timeago";
 import { BACKGROUND_COLOR, PRIMARY_COLOR } from "../constants/Colors";
 import { RED_HAT_FONT } from "../constants/Font";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 export interface CreatorContentCardProps extends CreatorContentType {}
 const CreatorContentCard: React.FC<CreatorContentCardProps> = ({
@@ -19,9 +20,13 @@ const CreatorContentCard: React.FC<CreatorContentCardProps> = ({
   type,
 }) => {
   const pic = coverUrl || process.env.PUBLIC_URL + "/placeholder";
-
+  const history = useHistory();
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        history.push("/content/" + contentId);
+      }}
+    >
       <ImageContainer>
         <Image src={pic} />
       </ImageContainer>

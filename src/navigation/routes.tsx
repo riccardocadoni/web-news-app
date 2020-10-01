@@ -6,6 +6,7 @@ import Feed from "../screens/Feed";
 import Explore from "../screens/Explore";
 import UserProfile from "../screens/UserProfile";
 import CreatorProfile from "../screens/CreatorProfile";
+import ArticleVisualizer from "../screens/ArticleVisualizer";
 
 //PUBLIC ROUTES (IF NOT LOGGED IN)
 export const publicRoutes = [
@@ -28,11 +29,12 @@ export const userRoutes = [
     path: "/creator/:creatorId",
     exact: true,
     main: () => <CreatorProfile />,
-  } /*
+  },
   {
-    name: "Content",
-    path: "/content/:id",
+    name: "ArticleVisualizer",
+    path: "/content/:contentId",
     exact: true,
-    main: () => <Visualizer />,
-  }, */,
+    main: () => <ArticleVisualizer />,
+  },
+  ,
 ];
