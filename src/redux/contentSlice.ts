@@ -9,21 +9,21 @@ interface ErrorMessage {
   errorMessage: string;
 }
 interface Parameters {
-  cid: string | undefined;
+  creatorId: string | undefined;
 }
 
 export const getCreatorContent = createAsyncThunk<
   any,
-  Parameters,
+  any,
   {
     rejectValue: ErrorMessage;
   }
->("content/getCreatorContent", async ({ cid }, thunkApi) => {
+>("content/getCreatorContent", async ({ creatorId }, thunkApi) => {
   try {
     const dataSnap = await firebase
       .firestore()
       .collection("content")
-      .where("creatorId", "==", cid)
+      .where("creatorId", "==", creatorId)
       .orderBy("createdAt", "desc")
       .limit(5)
       .get();
@@ -47,16 +47,16 @@ export const getCreatorContent = createAsyncThunk<
 // info present also in explore or profile in linked from there
 export const getCreatorInfo = createAsyncThunk<
   any,
-  Parameters,
+  any,
   {
     rejectValue: ErrorMessage;
   }
->("content/getCreatorInfo", async ({ cid }, thunkApi) => {
+>("content/getCreatorInfo", async ({ creatorId }, thunkApi) => {
   try {
     const creatorSnap = await firebase
       .firestore()
       .collection("creators")
-      .doc(cid)
+      .doc(creatorId)
       .get();
     return { ...creatorSnap.data(), creatorId: creatorSnap.id };
   } catch (error) {

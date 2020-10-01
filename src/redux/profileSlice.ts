@@ -12,7 +12,7 @@ interface ErrorMessage {
 }
 type LoginReturn = any;
 interface Parameters {
-  creatorInfo?: CreatorInfoType;
+  creatorInfo?: CreatorInfoType | null;
   followingIds?: string[];
 }
 

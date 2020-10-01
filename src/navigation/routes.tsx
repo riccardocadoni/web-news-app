@@ -5,6 +5,7 @@ import SignUp from "../screens/SignUp";
 import Feed from "../screens/Feed";
 import Explore from "../screens/Explore";
 import UserProfile from "../screens/UserProfile";
+import CreatorProfile from "../screens/CreatorProfile";
 
 //PUBLIC ROUTES (IF NOT LOGGED IN)
 export const publicRoutes = [
@@ -22,16 +23,16 @@ export const userRoutes = [
     exact: true,
     main: () => <UserProfile />,
   },
-  /*  {
-    name: "PublicCreatorProfile",
+  {
+    name: "CreatorProfile",
     path: "/creator/:creatorId",
     exact: true,
-    main: () => <PublicCreatorProfile />,
-  },
+    main: () => <CreatorProfile />,
+  } /*
   {
     name: "Content",
     path: "/content/:id",
     exact: true,
     main: () => <Visualizer />,
-  }, */
+  }, */,
 ];

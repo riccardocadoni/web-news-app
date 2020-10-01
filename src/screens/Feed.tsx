@@ -9,6 +9,7 @@ import {
   selectErrorMessage,
 } from "../redux/feedSlice";
 import FeedCard from "../components/FeedCard";
+import { getFollowingData } from "../redux/profileSlice";
 
 export interface FeedProps {}
 
@@ -21,7 +22,7 @@ const Feed: React.FC<FeedProps> = () => {
   React.useEffect(() => {
     if (!feed) {
       dispatch(getFeed({}));
-      //dispatch(getFollowingData({ }))
+      dispatch(getFollowingData({}));
     }
   }, []);
   if (!feed) {
@@ -29,7 +30,7 @@ const Feed: React.FC<FeedProps> = () => {
   }
 
   const items = feed.map((post) => {
-    return <FeedCard {...post}></FeedCard>;
+    return <FeedCard {...post} key={post.contentId}></FeedCard>;
   });
 
   return (

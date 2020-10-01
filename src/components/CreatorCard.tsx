@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { BACKGROUND_COLOR } from "../constants/Colors";
 import { RED_HAT_FONT } from "../constants/Font";
@@ -17,9 +18,14 @@ const CreatorCard: React.FC<CreatorCardProps> = ({
   profilePic,
   creatorId,
 }) => {
+  const history = useHistory();
   const pic = profilePic || process.env.PUBLIC_URL + "/placeholder_avatar.jpg";
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        history.push("/creator/" + creatorId);
+      }}
+    >
       <ImageContainer>
         <ImageProfile src={pic} />
       </ImageContainer>
