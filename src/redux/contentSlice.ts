@@ -64,6 +64,30 @@ export const getCreatorInfo = createAsyncThunk<
   }
 });
 
+export const getContentById = createAsyncThunk<
+  any,
+  any,
+  {
+    rejectValue: ErrorMessage;
+  }
+>("content/getContentById", async ({ contentId }, thunkApi) => {
+  try {
+    const contentSnap = await firebase
+      .firestore()
+      .collection("content")
+      .doc(contentId)
+      .get();
+    return {
+      ...contentSnap.data(),
+      createdAt: JSON.stringify(contentSnap.data()?.createdAt.toDate()),
+      editedAt: JSON.stringify(contentSnap.data()?.editedAt?.toDate()),
+      contentId: contentSnap.id,
+    };
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
+
 export interface CreatorInfoType {
   firstName: string;
   lastName: string;
@@ -89,6 +113,7 @@ interface initialContentState {
     info: CreatorInfoType | null;
     content: CreatorContentType[] | null;
   };
+  content: CreatorContentType | null;
   isLoading: boolean;
   errorMessage: string | null;
 }
@@ -100,7 +125,8 @@ export const contentSlice = createSlice({
       info: null,
       content: null,
     },
-    isLoading: true,
+    content: null,
+    isLoading: false,
     errorMessage: null,
   } as initialContentState,
   reducers: {
@@ -109,7 +135,8 @@ export const contentSlice = createSlice({
         info: null,
         content: null,
       },
-      isLoading: true,
+      content: null,
+      isLoading: false,
       errorMessage: null,
     }),
   },
@@ -135,6 +162,15 @@ export const contentSlice = createSlice({
     [getCreatorContent.pending.type]: (state) => {
       state.isLoading = true;
     },
+    [getContentById.fulfilled.type]: (state, { payload }) => {
+      (state.content = payload), (state.isLoading = false);
+    },
+    [getContentById.rejected.type]: (state, { payload }) => {
+      (state.errorMessage = payload.payload), (state.isLoading = false);
+    },
+    [getContentById.pending.type]: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
@@ -143,6 +179,7 @@ export const { reset } = contentSlice.actions;
 
 //selectors
 export const selectCreator = (state: RootState) => state.content.creator;
+export const selectContent = (state: RootState) => state.content.content;
 export const selectErrorMessage = (state: RootState) =>
   state.content.errorMessage;
 export const selectIsLoading = (state: RootState) => state.content.isLoading;

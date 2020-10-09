@@ -9,8 +9,6 @@ import {
   getCreatorContent,
   selectCreator,
   selectIsLoading,
-  CreatorInfoType,
-  CreatorContentType,
 } from "../redux/contentSlice";
 import {
   addNewFollow,
@@ -92,13 +90,12 @@ const CreatorProfile: React.FC<CreatorProfileProps> = () => {
 export default CreatorProfile;
 
 const Container = styled.div`
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  margin-left: 150px;
-  margin-right: 150px;
+  width: 700px;
   @media (max-width: 400px) {
-    margin-left: 15px;
-    margin-right: 15px;
+    width: 300px;
   }
 `;
 const ProfileInfoContainer = styled.div`

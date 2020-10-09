@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
-//types
+
 import { CreatorContentType } from "../redux/contentSlice";
 import { selectFeed } from "../redux/feedSlice";
+import {
+  getContentById,
+  selectContent,
+  selectIsLoading,
+} from "../redux/contentSlice";
 import styled from "styled-components";
 import { RED_HAT_FONT } from "../constants/Font";
 import Loading from "../components/Loading";
@@ -19,30 +24,43 @@ const ArticleVisualizer: React.FC<ArticleVisualizerProps> = () => {
 
   const dispatch = useDispatch(); //add dispatch get article if is not in redux store
   const feed = useSelector(selectFeed);
+  const content = React.useMemo(() => useSelector(selectContent), [
+    selectContent,
+  ]);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    setArticle(feed?.find((object) => object.contentId === contentId));
-  }, []);
+    const articleInFeed = feed?.find(
+      (object) => object.contentId === contentId
+    );
+    if (content) setArticle(content);
+    if (articleInFeed) {
+      setArticle(articleInFeed);
+    } else {
+      dispatch(getContentById({ contentId }));
+    }
+  }, [content]);
 
-  if (article === null) return <Loading></Loading>;
+  if (article === null || isLoading) return <Loading></Loading>;
   if (article === undefined)
     return (
       <Container>
         <Title>Article not found</Title>
       </Container>
-    );
+    ); /* 
   if (!contentId)
     return (
       <Container>
         <p>Article not found</p>
       </Container>
-    );
+    ); */
   const editorState = EditorState.createWithContent(
     convertFromRaw(JSON.parse(article.content))
   );
   return (
     <Container>
       <Title>{article.title}</Title>
+      <Cover src={article.coverUrl}></Cover>
       <Editor
         editorState={editorState}
         readOnly={true}
@@ -75,5 +93,10 @@ const Title = styled.p`
   font-family: ${RED_HAT_FONT};
   font-weight: bold;
   margin: 0px;
+  margin-bottom: 30px;
+`;
+const Cover = styled.img`
+  width: 500px;
+  height: 350px;
   margin-bottom: 30px;
 `;
