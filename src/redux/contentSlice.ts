@@ -77,7 +77,7 @@ export const getContentById = createAsyncThunk<
       .collection("content")
       .doc(contentId)
       .get();
-    return {
+    return  {
       ...contentSnap.data(),
       createdAt: JSON.stringify(contentSnap.data()?.createdAt.toDate()),
       editedAt: JSON.stringify(contentSnap.data()?.editedAt?.toDate()),

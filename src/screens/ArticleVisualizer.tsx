@@ -22,23 +22,18 @@ const ArticleVisualizer: React.FC<ArticleVisualizerProps> = () => {
     null
   );
 
-  const dispatch = useDispatch(); //add dispatch get article if is not in redux store
+  const dispatch = useDispatch();
   const feed = useSelector(selectFeed);
-  const content = React.useMemo(() => useSelector(selectContent), [
-    selectContent,
-  ]);
+  const content = useSelector(selectContent);
   const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
     const articleInFeed = feed?.find(
       (object) => object.contentId === contentId
     );
-    if (content) setArticle(content);
     if (articleInFeed) {
       setArticle(articleInFeed);
-    } else {
-      dispatch(getContentById({ contentId }));
-    }
+    } else content?.contentId === contentId ? setArticle(content) : (dispatch(getContentById({ contentId }))) 
   }, [content]);
 
   if (article === null || isLoading) return <Loading></Loading>;

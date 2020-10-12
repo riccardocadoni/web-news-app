@@ -80,7 +80,7 @@ const CreatorProfile: React.FC<CreatorProfileProps> = () => {
       </ProfileInfoContainer>
       <ContentContainer>
         {creator.content?.map((content) => {
-          return <CreatorContentCard {...content}></CreatorContentCard>;
+          return <CreatorContentCard key={content.contentId} {...content}></CreatorContentCard>;
         })}
       </ContentContainer>
     </Container>

@@ -11,6 +11,8 @@ import {
 import FeedCard from "../components/FeedCard";
 import { getFollowingData } from "../redux/profileSlice";
 import Loading from "../components/Loading";
+import { RED_HAT_FONT } from "../constants/Font";
+import { PRIMARY_COLOR } from "../constants/Colors";
 
 export interface FeedProps {}
 
@@ -32,7 +34,7 @@ const Feed: React.FC<FeedProps> = () => {
   if (!feed || feed.length === 0)
     return (
       <Container>
-        <h3>There's nothing to see here.. try following someone!</h3>
+        <Text>There's nothing to see here.. try following someone in the explore section! Then refresh the page.</Text>
       </Container>
     );
 
@@ -71,4 +73,12 @@ const Container = styled.div`
   @media (max-width: 400px) {
     width: 300px;
   }
+`;
+
+const Text = styled.p`
+  font-size: 20px;
+  font-family: ${RED_HAT_FONT};
+  color:${PRIMARY_COLOR};
+  font-weight: bold;
+  margin: 50px;
 `;

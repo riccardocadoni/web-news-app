@@ -22,9 +22,9 @@ const Header: React.FC<HeaderProps> = () => {
         </NavLeft>
         {isLoggedIn ? (
           <>
-            <NavCenter>
+           {/*  <NavCenter>
               <Input type="text" placeholder="Search" />
-            </NavCenter>
+            </NavCenter> */}
 
             <NavRight>
               <MenuLink to="/explore">
